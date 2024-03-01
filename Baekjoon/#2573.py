@@ -1,5 +1,3 @@
-# import sys
-# sys.stdin = open('input.txt')
 import sys
 from collections import deque
 

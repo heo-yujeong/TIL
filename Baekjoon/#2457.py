@@ -1,6 +1,3 @@
-import sys
-sys.stdin = open('input.txt')
-
 N = int(input())
 flowers = []
 for _ in range(N):
