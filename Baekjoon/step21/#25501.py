@@ -1,6 +1,3 @@
-import sys
-sys.stdin = open('input.txt')
-
 def recursion(s, l, r):
     global count
     count += 1

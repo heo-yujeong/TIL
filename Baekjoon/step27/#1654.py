@@ -1,5 +1,5 @@
 import sys
-sys.stdin = open('input.txt')
+sys.stdin = open('../input.txt')
 
 # K: 랜선 개수, N: 잘라서 만들 랜선 개수
 K, N = map(int, input().split())
