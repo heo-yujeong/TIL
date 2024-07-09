@@ -1,35 +1,3 @@
-'''
-import sys
-from heapq import heappush, heappop
-input = sys.stdin.readline
-
-N = int(input())
-planet = [list(map(int, input().split())) for _ in range(N)]
-visit = [0] * N
-
-min_fee = 0
-pq = [(0, 0)]
-
-while pq:
-    fee, now = heappop(pq)
-    if visit[now]:
-        continue
-
-    visit[now] = 1
-    min_fee += fee
-
-    min_f = float('inf')
-    for next in range(N):
-        if now == next:
-            continue
-        if not visit[next]:
-            f = min(abs(planet[now][0]-planet[next][0]), abs(planet[now][1]-planet[next][1]), abs(planet[now][2]-planet[next][2]))
-            if f < min_f:
-                min_f = f
-                heappush(pq, (f, next))
-
-print(min_fee)
-'''
 import sys
 from heapq import heappush, heappop
 input = sys.stdin.readline
