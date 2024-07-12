@@ -1,23 +1,29 @@
-from collections import deque
+import sys
+from heapq import heappush, heappop
+input = sys.stdin.readline
 
 N, M = map(int, input().split())
 problem = [[] for _ in range(N+1)]
+in_degree = [0] * (N+1)
+order = []
 
 for _ in range(M):
     pre, after = map(int, input().split())
-    problem[after].append(pre)
+    problem[pre].append(after)
+    in_degree[after] += 1
 
-order = []
-queue = deque()
+pq = []
+for i in range(1, N+1):
+    if in_degree[i] == 0:
+        heappush(pq, i)
 
-for idx in range(1, N+1):
-    if problem[idx] == []:
-        queue.append(idx)
+while pq:
+    now = heappop(pq)
+    order.append(now)
 
-while queue:
-    now = queue.popleft()
-    if now not in order:
-        order.append(now)
-    
-    for idx in range(1, N+1):
-        pass
+    for next in problem[now]:
+        in_degree[next] -= 1
+        if in_degree[next] == 0:
+            heappush(pq, next)
+
+print(*order)
