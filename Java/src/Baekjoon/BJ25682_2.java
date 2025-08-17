@@ -1,0 +1,47 @@
+package Baekjoon;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class BJ25682_2 {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        int K = Integer.parseInt(st.nextToken());
+
+        char[][] arr = new char[N][M];
+        for (int i = 0; i < N; i++) {
+            String str = br.readLine();
+            for (int j = 0; j < M; j++) {
+                arr[i][j] = str.charAt(j);
+            }
+        }
+
+        int[][] sumB = new int[N+1][M+1];
+        for (int i = 1; i <= N; i++) {
+            for (int j = 1; j <= M; j++) {
+                char exB = ((i + j) % 2 == 0) ? 'B' : 'W';
+                int diffB = (arr[i-1][j-1] == exB) ? 0 : 1;
+
+                sumB[i][j] = sumB[i-1][j] + sumB[i][j-1] - sumB[i-1][j-1] + diffB;
+            }
+        }
+
+        int min = Integer.MAX_VALUE;
+        for (int i = K; i <= N; i++) {
+            for (int j = K; j <= M; j++) {
+                int cntB = sumB[i][j] - sumB[i-K][j] - sumB[i][j-K] + sumB[i-K][j-K];
+                int cntW = K * K - cntB;
+
+                min = Math.min(min, Math.min(cntW, cntB));
+            }
+        }
+
+        System.out.println(min);
+    }
+}
